@@ -59,6 +59,17 @@ public class HelloWorldMongoDBSparkFreemarkerStyle {
         }
     });
 
+    Spark.post(new Route("/formSubmit") {
+        @Override
+        public Object handle(Request request, Response response) {
+            final String param = request.queryParams("fruit");
+            if (param == null){
+                return "choose one";
+            }   else {
+                return "your frut is" + param;
+            }
+        }
+    });
 
    }
 }
