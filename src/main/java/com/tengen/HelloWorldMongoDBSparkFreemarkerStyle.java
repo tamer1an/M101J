@@ -29,20 +29,36 @@ public class HelloWorldMongoDBSparkFreemarkerStyle {
         DB database = client.getDB("course");
         final DBCollection collection = database.getCollection("hello");
 
-      Spark.get(new Route("/") {
-          @Override
-          public Object handle(Request request, Response response) {
-              StringWriter writer = new StringWriter();
-              try{
-                  Template helloTemplate = configuration.getTemplate("hello.ftl");
-                  DBObject document = collection.findOne();
-                  helloTemplate.process(document,writer);
-              }catch (Exception e){
-                  halt(500);
-                  e.printStackTrace();
-              }
-              return writer;
+    Spark.get(new Route("/") {
+      @Override
+      public Object handle(Request request, Response response) {
+          StringWriter writer = new StringWriter();
+          try{
+              Template helloTemplate = configuration.getTemplate("hello.ftl");
+              DBObject document = collection.findOne();
+              helloTemplate.process(document,writer);
+          }catch (Exception e){
+              halt(500);
+              e.printStackTrace();
           }
-      });
+          return writer;
+      }
+    });
+
+    Spark.get(new Route("/test") {
+        @Override
+        public Object handle(Request request, Response response) {
+            return "Test page";
+        }
+    });
+
+    Spark.get(new Route("/echo/:thing") {
+        @Override
+        public Object handle(Request request, Response response) {
+            return request.params(":thing");
+        }
+    });
+
+
    }
 }
