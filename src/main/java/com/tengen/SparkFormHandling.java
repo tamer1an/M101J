@@ -46,7 +46,7 @@ public class SparkFormHandling {
                             Arrays.asList("apple", "orange", "banana", "peach"));
 
                     Template fruitPickerTemplate =
-                            configuration.getTemplate("fruitPicker.ftl");
+                            configuration.getTemplate("fruit.ftl");
                     StringWriter writer = new StringWriter();
                     fruitPickerTemplate.process(fruitsMap, writer);
                     return writer;
